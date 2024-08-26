@@ -2,9 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Image</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+        img {
+            position: absolute;
+            width: 200px;  /* Increase the width to 200px */
+            height: 250px; /* Increase the height to 250px */
+        }
+    </style>
 </head>
 <body>
+
+<script>
+    const maxImages = 30;
+    const imageSrc = 'myImage.jpg'; // Directly reference the image in the same directory
+
+    let images = [];
+
+    function createImage() {
+        const img = document.createElement('img');
+        img.src = imageSrc;
+        img.style.left = Math.random() * (window.innerWidth - 200) + 'px'; // Adjusted for new image width
+        img.style.top = Math.random() * (window.innerHeight - 250) + 'px'; // Adjusted for new image height
+
+        // Assign random direction and speed for each image
+        img.dx = (Math.random() * 4 + 1) * (Math.random() < 0.5 ? 1 : -1);
+        img.dy = (Math.random() * 4 + 1) * (Math.random() < 0.5 ? 1 : -1);
+
+        document.body.appendChild(img);
+        images.push(img);
+    }
+
+    function moveImages() {
+        images.forEach((img) => {
+            let x = parseInt(img.style.left);
+            let y = parseInt(img.style.top);
+
+            if (x + img.dx > window.innerWidth - 200 || x + img.dx < 0) {
+                img.dx = -img.dx;
+                multiplyImage();
+            }
+            if (y + img.dy > window.innerHeight - 250 || y + img.dy < 0) {
+                img.dy = -img.dy;
+                multiplyImage();
+            }
+
+            img.style.left = x + img.dx + 'px';
+            img.style.top = y + img.dy + 'px';
+        });
+
+        requestAnimationFrame(moveImages);
+    }
+
+    function multiplyImage() {
+        if (images.length < maxImages) {
+            createImage();
+        } else {
+            resetImages();
+        }
+    }
+
+    function resetImages() {
+        images.forEach(img => document.body.removeChild(img));
+        images = [];
+        createImage();
+    }
+
+    createImage();
+    moveImages();
+</script>
 
 </body>
 </html>
