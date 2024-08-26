@@ -12,8 +12,8 @@
         }
         img {
             position: absolute;
-            width: 200px;  /* Increase the width to 200px */
-            height: 250px; /* Increase the height to 250px */
+            width: 200px;
+            height: 250px;
         }
     </style>
 </head>
@@ -21,15 +21,15 @@
 
 <script>
     const maxImages = 100;
-    const imageSrc = 'myImage.jpg'; // Directly reference the image in the same directory
+    const imageSrc = 'myImage.jpg';
 
     let images = [];
 
     function createImage() {
         const img = document.createElement('img');
         img.src = imageSrc;
-        img.style.left = Math.random() * (window.innerWidth - 200) + 'px'; // Adjusted for new image width
-        img.style.top = Math.random() * (window.innerHeight - 250) + 'px'; // Adjusted for new image height
+        img.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+        img.style.top = Math.random() * (window.innerHeight - 250) + 'px';
 
         // Assign random direction and speed for each image
         img.dx = (Math.random() * 4 + 1) * (Math.random() < 0.5 ? 1 : -1);
